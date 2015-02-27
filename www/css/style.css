@@ -1,1 +1,35 @@
-/* Empty. Add your own CSS if you like */
+ion-content {
+	background-color: #5C719D;
+}
+
+.bar-header, .bar {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 45px;
+	font-style: normal;
+	font-weight: 100;
+	letter-spacing: 5px;
+	margin-top: 0px;
+	margin-bottom: 30px;
+	text-align: center;
+	color: black;
+}
+
+.logo img {
+	display: block;
+	width:50%;
+	height:50%;
+	margin: auto; 
+	padding-top: 50px;
+}
+
+.item, .menu_option {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 30px;
+	font-style: normal;
+	font-weight: 100;
+	letter-spacing: 5px;
+	line-height: 50px;
+	margin: 5px;
+	text-align: center;
+	color: white;
+}
