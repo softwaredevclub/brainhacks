@@ -48,6 +48,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
+  .state('app.screenflash', {
+      url: "/test/screenflash",
+      views: {
+          'menuContent': {
+              templateUrl: "templates/tests/screenflash.html"
+          }
+      }
+  })
+
   .state('app.browse', {
     url: "/browse",
     views: {

@@ -63,3 +63,21 @@ ion-content #title {
 	background: transparent;
 	
 }
+
+.pull-center {
+	margin:auto;
+	display:block;
+}
+
+.going-btn {
+	padding:10px 100px;
+	margin-top:60%;
+}
+
+.flashing {
+	background-color:red !important;
+}
+
+#game-wrap {
+	height:100%;
+}
