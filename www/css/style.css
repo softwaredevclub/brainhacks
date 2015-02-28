@@ -1,10 +1,17 @@
-html {
+ion-content {
+	background-image: url("/img/background.jpg")
+}
+
+ion-item {
+	border-style: none;
 
 }
 
-ion-content, ion-content * {
-	background-color: #5C719D !important;
+.item {
+	broder: none;
+	border-style: none;
 }
+
 
 .bar-header, .bar {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -15,7 +22,21 @@ ion-content, ion-content * {
 	margin-top: 0px;
 	margin-bottom: 30px;
 	text-align: center;
+	color: black;
+}
+
+ion-content #title {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 50px;
+	font-style: normal;
+	font-weight: 100;
+	letter-spacing: 3px;
+	line-height: 30px;
+	margin: 0px;
+	text-align: center;
 	color: white;
+	border: none;
+	padding-top: 20px;
 }
 
 .logo img {
@@ -23,18 +44,22 @@ ion-content, ion-content * {
 	width:50%;
 	height:50%;
 	margin: auto; 
-	padding-top: 50px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
-.menu_option {
+.menu_option, .main, .item,  .item-complex, .item-content{
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 30px;
 	font-style: normal;
 	font-weight: 100;
 	letter-spacing: 5px;
-	line-height: 50px;
-	margin: 5px;
+	line-height: 40px;
+	margin: 0px;
 	text-align: center;
 	color: white;
+	border: none;
+	padding: 5px;
+	background: transparent;
 	
 }
