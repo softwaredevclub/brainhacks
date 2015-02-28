@@ -1,5 +1,15 @@
+
+@-webkit-keyframes pulse { 
+	0% {background-color: #4A748E;} 
+	25% {background-color: #4A558E;} 
+	50% {background-color: #604A8E;} 
+	75% {background-color: #854A8E;} 
+	100% {background-color: #8E4A73;} 
+} 
+
 ion-content {
-	background-image: url("/img/background.jpg")
+	background-color: #4A748E;
+	/*-webkit-animation: pulse 6s infinite alternate;*/
 }
 
 ion-item {
@@ -12,6 +22,9 @@ ion-item {
 	border-style: none;
 }
 
+#wrapper {
+	margin-top: 50px;
+}
 
 .bar-header, .bar {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -30,13 +43,12 @@ ion-content #title {
 	font-size: 50px;
 	font-style: normal;
 	font-weight: 100;
-	letter-spacing: 3px;
-	line-height: 30px;
+	letter-spacing: 5px;
+	line-height: 70px;
 	margin: 0px;
 	text-align: center;
 	color: white;
 	border: none;
-	padding-top: 20px;
 }
 
 .logo img {
