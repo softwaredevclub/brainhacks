@@ -44,6 +44,72 @@ angular.module('starter.controllers', [])
   ];
 })
 
+.controller('GravityBallCtrl', function($scope) {
+    var parent = this
+    var canvas = document.getElementById('gravity-ball-canvas')
+    var ctx = canvas.getContext('2d')
+
+    var width = window.screen.availWidth
+    var height = window.screen.availHeight
+
+    canvas.width = window.screen.availWidth
+    canvas.height = window.screen.availHeight
+
+    var ballx, bally, holex, holey, ballvx, ballvy
+
+    this.started = false
+
+    this.start = function() {
+        this.started = true;
+        this.init()
+    }
+
+    this.draw = function() {
+        ctx.beginPath()
+        ctx.arc(ballx, bally, width/20, 0, Math.PI*2)
+        ctx.fillStyle = "red"
+        ctx.fill()
+
+        ctx.beginPath()
+        ctx.arc(holex, holey, width/20, 0, Math.PI*2)
+        ctx.fillStyle = "black"
+        ctx.fill()
+    }
+
+    this.init = function() {
+        ballx = Math.random()*width
+        bally = Math.random()*height
+        ballvx = 0
+        ballvy = 0
+
+        holex = Math.random()*width
+        holey = Math.random()*height
+
+        this.draw()
+
+        console.log('now wait for deviceready')
+        document.addEventListener("deviceready", function() {
+            parent.track()
+        }, false);
+    }
+
+    this.track = function() {
+        navigator.accelerometer.watchAcceleration(function(acceleration) {
+            console.log(acceleration)
+
+            ballx -= acceleration.x
+            bally += acceleration.y
+
+            parent.draw()
+
+        }, function(){
+            console.log('error')
+        }, {
+            frequency: 100
+        })
+    }
+})
+
 .controller('ScreenflashCtrl', function($scope, $timeout, $interval, $location) {
     var parent = this
 
@@ -84,7 +150,6 @@ angular.module('starter.controllers', [])
     this.clicked = function() {
         if(!this.going) {
             alert("Wait until the screen flashes to click")
-            console.log('too soon')
             return
         }
 
@@ -103,6 +168,10 @@ angular.module('starter.controllers', [])
     }
 
     this.finish = function() {
+        var score = 0
+        for(var i=0;i<this.scores.length;i++)
+            score += this.scores[i]
+
         $location.path('app/home')
     }
 })

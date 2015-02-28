@@ -57,6 +57,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
   })
 
+  .state('app.gravityball', {
+      url: "/test/gravityball",
+      views: {
+          'menuContent': {
+              templateUrl: "templates/tests/gravityball.html"
+          }
+      }
+  })
+
   .state('app.browse', {
     url: "/browse",
     views: {
