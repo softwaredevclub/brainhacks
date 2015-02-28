@@ -56,6 +56,14 @@ angular.module('starter', ['ionic', 'starter.controllers'])
           }
       }
   })
+  .state('app.basicmath',{
+    url: "/test/basicmath",
+    views:{
+      'menuContent':{
+        templateUrl:"templates/tests/basicmath.html"
+      }
+    }
+  })
 
   .state('app.browse', {
     url: "/browse",

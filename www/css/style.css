@@ -81,3 +81,27 @@ ion-content #title {
 #game-wrap {
 	height:100%;
 }
+.wrongAnswer.animate.unclickedAnswer {
+	-webkit-animation: colorChangeGray 0.4s;
+	background-color: gray;
+}
+@-webkit-keyframes colorChangeGray{
+	from {background-color:transparent;}
+	to {background-color :gray;}
+}
+.correctAnswer.animate {
+	-webkit-animation: colorChangeGreen 0.4s;
+	background-color: green;
+}
+@-webkit-keyframes colorChangeGreen{
+	from {background-color:transparent;}
+	to {background-color :green;}
+}
+.wrongAnswer.animate.clickedAnswer{
+	-webkit-animation: colorChangeRed 0.4s;
+	background-color: red;
+}
+@-webkit-keyframes colorChangeRed{
+	from {background-color:transparent;}
+	to {background-color :red;}
+}

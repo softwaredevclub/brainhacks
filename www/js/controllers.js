@@ -64,6 +64,72 @@ angular.module('starter.controllers', [])
             })
     }
 })
+.controller('BasicMathCtrl',function($scope, $timeout){
+  this.started = false
+  this.answers = []
+  this.problem = ""
+  this.animate = false
+  this.start = function(){
+    this.started = true;
+    this.displayProblem()
+  }
+  this.displayProblem = function(){
+      var problemType = Math.floor(Math.random()*4)
+      console.log("problemType",problemType)
+      problemType = 2
+      switch(problemType){
+        case 0:
+          var a = Math.ceil(Math.random()*19);
+          var b = Math.ceil(Math.random()*21);
+          var c = a+b;
+          var arr = [c];
+          this.generateWrongAnswers(arr,2*c)
+          this.answers = arr
+          this.problem = a + " + " + b + " = ?"
+          this.correctAnswer = c
+        case 1:
+          var a = Math.ceil(Math.random()*19);
+          var b = Math.ceil(Math.random()*21);
+          var c = a+b;
+          var arr = [b];
+          console.log("correct answer:", b)
+          this.generateWrongAnswers(arr,2*b)
+          this.answers = arr
+          this.problem = c + " - " + a + " = ?"
+          this.correctAnswer = b
+        case 2:
+          var a = Math.ceil(Math.random()*14);
+          var b = Math.ceil(Math.random()*12);
+          var c = a * b;
+          console.log("correctAnswer:", c)
+          var arr = [c]
+          console.log(this.started)
+          this.generateWrongAnswers(arr,2*c)
+          this.answers = arr
+          this.problem = a + " * " + b + " = ?"
+          this.correctAnswer = c          
+        case 3:
+      } 
+  }
+  this.checkResponse = function(answer){
+    this.clickedAnswer = answer
+    this.animate = true
+    $timeout(function(){},1000).then(function(){
+      this.displayProblem()
+    })
+  }
+  this.generateWrongAnswers= function(arr, max) {
+    while(arr.length < 5){
+      var randomnumber=Math.ceil(Math.random()*max)
+      var found=false;
+      for(var i=0;i<arr.length;i++){
+        if(arr[i]==randomnumber){found=true;break}
+      }
+      if(!found)arr[arr.length]=randomnumber;
+    }
+    arr.sort(function(a,b){return a-b;});
+  }
+})
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });
