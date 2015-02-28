@@ -75,7 +75,7 @@ ion-content #title {
 	border: none;
 	padding: 5px;
 	background: transparent;
-	
+
 }
 
 #menu_wrap {
@@ -92,8 +92,9 @@ ion-content #title {
 	margin-top:60%;
 }
 
-.flashing {
+.flash-back {
 	background-color:red !important;
+	background-image:none;
 }
 
 #game-wrap {
