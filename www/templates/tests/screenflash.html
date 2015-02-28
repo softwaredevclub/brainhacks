@@ -1,0 +1,19 @@
+<ion-view view-title="Screen Flash Test">
+    <ion-content ng-controller="ScreenflashCtrl as Ctrl">
+        <div ng-class="{flashing:flashing}" id="game-wrap">
+            <div id="instructions" ng-hide="Ctrl.started">
+                <h1>Screen flash test</h1>
+                <button class="button button-block button-balanced" ng-click="Ctrl.start()">
+                    Start
+                </button>
+            </div>
+            <div id="game" ng-show="Ctrl.started">
+                <h1>Game started</h1>
+
+                <button class="button pull-center going-btn" ng-class="{'button-energized':!going, 'button-assertive':going}">
+                    {{ Ctrl.buttonText }}
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

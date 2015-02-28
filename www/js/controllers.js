@@ -44,5 +44,26 @@ angular.module('starter.controllers', [])
   ];
 })
 
+.controller('ScreenflashCtrl', function($scope, $timeout) {
+    this.started = false
+    this.going = false
+    this.buttonText = "Wait"
+    this.flashesLeft = 5
+    this.flashing = false
+
+    this.start = function() {
+        this.started = true;
+
+        this.wait()
+    }
+
+    this.wait = function() {
+        $timeout(function(){}, 1000)
+            .then(function() {
+                this.flashing = true
+            })
+    }
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });
