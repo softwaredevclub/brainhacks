@@ -44,7 +44,7 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('GravityBallCtrl', function($scope) {
+.controller('GravityBallCtrl', function($scope, $interval, $ionicHistory, $state) {
     var parent = this
     var canvas = document.getElementById('gravity-ball-canvas')
     var ctx = canvas.getContext('2d')
@@ -55,35 +55,54 @@ angular.module('starter.controllers', [])
     canvas.width = window.screen.availWidth
     canvas.height = window.screen.availHeight
 
-    var ballx, bally, holex, holey, ballvx, ballvy
+    var ballx, bally, holex, holey, ballvx, ballvy, r, hr
+    var dt = 40
 
     this.started = false
+    this.timer = 0
+    this.timerText = ""
 
     this.start = function() {
         this.started = true;
         this.init()
+
+        parent.interval = $interval(function(){
+            parent.timer+=67
+            parent.timerText = (parent.timer/1000).toFixed(3)
+        }, 67)
     }
 
     this.draw = function() {
+        ctx.clearRect(0,0,width,height)
+
         ctx.beginPath()
-        ctx.arc(ballx, bally, width/20, 0, Math.PI*2)
+        ctx.arc(holex, holey, hr, 0, Math.PI*2)
+        ctx.fillStyle = "black"
+        ctx.fill()
+
+        ctx.beginPath()
+        ctx.arc(ballx, bally, r, 0, Math.PI*2)
         ctx.fillStyle = "red"
         ctx.fill()
 
-        ctx.beginPath()
-        ctx.arc(holex, holey, width/20, 0, Math.PI*2)
-        ctx.fillStyle = "black"
-        ctx.fill()
     }
 
     this.init = function() {
+        function distance(x1,x2,y1,y2) {
+            return Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2),2)
+        }
+
         ballx = Math.random()*width
         bally = Math.random()*height
         ballvx = 0
         ballvy = 0
+        r = width/20
+        hr = r*2
 
-        holex = Math.random()*width
-        holey = Math.random()*height
+        do {
+            holex = Math.random()*width
+            holey = Math.random()*height
+        } while(distance(ballx, bally, holex, holey) < 2*(r+hr))
 
         this.draw()
 
@@ -94,23 +113,56 @@ angular.module('starter.controllers', [])
     }
 
     this.track = function() {
-        navigator.accelerometer.watchAcceleration(function(acceleration) {
-            console.log(acceleration)
+        this.watchId = navigator.accelerometer.watchAcceleration(function(acceleration) {
 
-            ballx -= acceleration.x
-            bally += acceleration.y
+            ballvx -= acceleration.x * dt/40
+            ballvy += acceleration.y * dt/40
+
+            ballx += ballvx * dt/40
+            bally += ballvy * dt/40
+
+            if(ballx + r < holex + hr && ballx - r > holex - hr && bally + r < holey + hr && bally - r > holey - hr)
+                parent.finish()
+
+            if(ballx + r > width) {
+                ballx = width - r
+                ballvx = -ballvx*(3/4)
+            }
+            if(ballx - r < 0) {
+                ballx = r
+                ballvx = -ballvx*(3/4)
+            }
+            if(bally + r > height) {
+                bally = height - r
+                ballvy = -ballvy*(3/4)
+            }
+            if(bally - r < 0) { // idk it works
+                bally = r
+                ballvy = -ballvy*(3/4)
+            }
 
             parent.draw()
 
         }, function(){
             console.log('error')
         }, {
-            frequency: 100
+            frequency: 40
         })
+
+        this.finish = function() {
+            console.log(this.timer)
+            navigator.accelerometer.clearWatch(parent.watchId)
+
+            $ionicHistory.nextViewOptions({
+                disableBack:true
+            })
+
+            $state.go('app.home')
+        }
     }
 })
 
-.controller('ScreenflashCtrl', function($scope, $timeout, $interval, $location) {
+.controller('ScreenflashCtrl', function($scope, $timeout, $interval, $location, $ionicHistory, $state) {
     var parent = this
 
     this.started = false
@@ -171,8 +223,13 @@ angular.module('starter.controllers', [])
         var score = 0
         for(var i=0;i<this.scores.length;i++)
             score += this.scores[i]
+        console.log(score)
 
-        $location.path('app/home')
+        $ionicHistory.nextViewOptions({
+            disableBack:true
+        })
+
+        $state.go('app.home')
     }
 })
 
