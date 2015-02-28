@@ -1,0 +1,27 @@
+<ion-view hide-nav-bar="true" view-title="Basic Math Test">
+    <ion-content ng-controller="BasicMathCtrl as Ctrl">
+    <div id="instructions" ng-hide="Ctrl.started">
+        <h1>Basic Math Test</h1>
+        <p>Do the arithemtic problems as quickly and accurately as possible.</p>
+        <button class="button button-block button-balanced" ng-click="Ctrl.start()">
+            Start
+        </button>
+    </div>
+    <div id="game" ng-show="Ctrl.started">
+            <h1>{{Ctrl.problem}}</h1>
+
+            <ion-list>
+                <ion-item ng-repeat="answer in Ctrl.answers" ng-click="Ctrl.checkResponse(answer)"
+                    ng-class="{
+                        'wrongAnswer':answer!=Ctrl.correctAnswer,
+                        'correctAnswer':answer==Ctrl.correctAnswer,
+                        'clickedAnswer' : answer == Ctrl.clickedAnswer,
+                        'unclickedAnswer': answer != Ctrl.clickedAnswer,
+                        'animate':Ctrl.animate}
+                        ">
+                {{answer}}
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-content>
+</ion-view>
