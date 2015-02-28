@@ -1,5 +1,9 @@
-ion-content {
-	background-color: #5C719D;
+html {
+
+}
+
+ion-content, ion-content * {
+	background-color: #5C719D !important;
 }
 
 .bar-header, .bar {
@@ -11,7 +15,7 @@ ion-content {
 	margin-top: 0px;
 	margin-bottom: 30px;
 	text-align: center;
-	color: black;
+	color: white;
 }
 
 .logo img {
@@ -22,7 +26,7 @@ ion-content {
 	padding-top: 50px;
 }
 
-.item, .menu_option {
+.menu_option {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 30px;
 	font-style: normal;
@@ -32,6 +36,7 @@ ion-content {
 	margin: 5px;
 	text-align: center;
 	color: white;
+	
 }
 
 .pull-center {
