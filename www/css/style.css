@@ -1,5 +1,15 @@
-ion-content {
-	background-image: url("/img/background.jpg")
+
+@-webkit-keyframes pulse {
+	0% {background-color: #4A748E;}
+	25% {background-color: #4A558E;}
+	50% {background-color: #604A8E;}
+	75% {background-color: #854A8E;}
+	100% {background-color: #8E4A73;}
+}
+
+.logo img {
+	background-color: #4A748E;
+	-webkit-animation: pulse 6s infinite alternate;
 }
 
 ion-item {
@@ -12,6 +22,9 @@ ion-item {
 	border-style: none;
 }
 
+#wrapper {
+	margin-top: 0px;
+}
 
 .bar-header, .bar {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -31,21 +44,22 @@ ion-content #title {
 	font-style: normal;
 	font-weight: 100;
 	letter-spacing: 3px;
-	line-height: 30px;
+	line-height: 70px;
 	margin: 0px;
 	text-align: center;
-	color: white;
+	color: black;
 	border: none;
-	padding-top: 20px;
+	padding-bottom: 30px;
 }
 
 .logo img {
 	display: block;
 	width:50%;
 	height:50%;
-	margin: auto; 
-	padding-top: 20px;
-	padding-bottom: 20px;
+	margin: auto;
+	padding:0px;
+	border-top: 20px;
+	border-bottom: 20px;
 }
 
 .menu_option, .main, .item,  .item-complex, .item-content{
@@ -57,11 +71,14 @@ ion-content #title {
 	line-height: 40px;
 	margin: 0px;
 	text-align: center;
-	color: white;
+	color: black;
 	border: none;
 	padding: 5px;
-	background: transparent;
-	
+
+}
+
+#menu_wrap {
+	padding-top: 30px;
 }
 
 .pull-center {
@@ -74,13 +91,16 @@ ion-content #title {
 	margin-top:60%;
 }
 
-.flashing {
+.flash-back {
 	background-color:red !important;
+	background-image:none;
+	-webkit-animation: none!important;
 }
 
 #game-wrap {
 	height:100%;
 }
+<<<<<<< HEAD
 .wrongAnswer.animate.unclickedAnswer {
 	-webkit-animation: colorChangeGray 0.4s;
 	background-color: gray;
@@ -105,3 +125,27 @@ ion-content #title {
 	from {background-color:transparent;}
 	to {background-color :red;}
 }
+=======
+
+#gravity-ball-canvas {
+	width:100%;
+	height:100%;
+}
+
+#gravity-ball-content > .scroll {
+	width:100%;
+	height:100%;
+}
+
+.gravity-ball-game {
+	height:100%;
+	width:100%;
+}
+
+#gravity-ball-timer {
+	position:absolute;
+	top:10px;
+	left:10px;
+	background-color:white;
+}
+>>>>>>> 20dbeabfa007d1893a5562bf9f05433aa7710140

@@ -44,12 +44,137 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('ScreenflashCtrl', function($scope, $timeout) {
+.controller('GravityBallCtrl', function($scope, $interval, $ionicHistory, $state) {
+    var parent = this
+    var canvas = document.getElementById('gravity-ball-canvas')
+    var ctx = canvas.getContext('2d')
+
+    var width = window.screen.availWidth
+    var height = window.screen.availHeight
+
+    canvas.width = window.screen.availWidth
+    canvas.height = window.screen.availHeight
+
+    var ballx, bally, holex, holey, ballvx, ballvy, r, hr
+    var dt = 40
+
+    this.started = false
+    this.timer = 0
+    this.timerText = ""
+
+    this.start = function() {
+        this.started = true;
+        this.init()
+
+        parent.interval = $interval(function(){
+            parent.timer+=67
+            parent.timerText = (parent.timer/1000).toFixed(3)
+        }, 67)
+    }
+
+    this.draw = function() {
+        ctx.clearRect(0,0,width,height)
+
+        ctx.beginPath()
+        ctx.arc(holex, holey, hr, 0, Math.PI*2)
+        ctx.fillStyle = "black"
+        ctx.fill()
+
+        ctx.beginPath()
+        ctx.arc(ballx, bally, r, 0, Math.PI*2)
+        ctx.fillStyle = "red"
+        ctx.fill()
+
+    }
+
+    this.init = function() {
+        function distance(x1,x2,y1,y2) {
+            return Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2),2)
+        }
+
+        ballx = Math.random()*width
+        bally = Math.random()*height
+        ballvx = 0
+        ballvy = 0
+        r = width/20
+        hr = r*2
+
+        do {
+            holex = Math.random()*width
+            holey = Math.random()*height
+        } while(distance(ballx, bally, holex, holey) < 2*(r+hr))
+
+        this.draw()
+
+        console.log('now wait for deviceready')
+        document.addEventListener("deviceready", function() {
+            parent.track()
+        }, false);
+    }
+
+    this.track = function() {
+        this.watchId = navigator.accelerometer.watchAcceleration(function(acceleration) {
+
+            ballvx -= acceleration.x * dt/40
+            ballvy += acceleration.y * dt/40
+
+            ballx += ballvx * dt/40
+            bally += ballvy * dt/40
+
+            if(ballx + r < holex + hr && ballx - r > holex - hr && bally + r < holey + hr && bally - r > holey - hr)
+                parent.finish()
+
+            if(ballx + r > width) {
+                ballx = width - r
+                ballvx = -ballvx*(3/4)
+            }
+            if(ballx - r < 0) {
+                ballx = r
+                ballvx = -ballvx*(3/4)
+            }
+            if(bally + r > height) {
+                bally = height - r
+                ballvy = -ballvy*(3/4)
+            }
+            if(bally - r < 0) { // idk it works
+                bally = r
+                ballvy = -ballvy*(3/4)
+            }
+
+            parent.draw()
+
+        }, function(){
+            console.log('error')
+        }, {
+            frequency: 40
+        })
+
+        this.finish = function() {
+            console.log(this.timer)
+            navigator.accelerometer.clearWatch(parent.watchId)
+
+            $ionicHistory.nextViewOptions({
+                disableBack:true
+            })
+
+            $state.go('app.home')
+        }
+    }
+})
+
+.controller('ScreenflashCtrl', function($scope, $timeout, $interval, $location, $ionicHistory, $state) {
+    var parent = this
+
     this.started = false
     this.going = false
+
     this.buttonText = "Wait"
-    this.flashesLeft = 5
+    this.timerText = "Wait for flash"
+
+    this.flashesLeft = 4
     this.flashing = false
+    this.time = 0
+    this.scores = []
 
     this.start = function() {
         this.started = true;
@@ -58,10 +183,53 @@ angular.module('starter.controllers', [])
     }
 
     this.wait = function() {
-        $timeout(function(){}, 1000)
+        $timeout(function(){}, Math.random() * 5000 + 1000)
             .then(function() {
-                this.flashing = true
+                parent.flashing = true
+                parent.buttonText = "Click Me"
+                parent.going = true
+                parent.flashesLeft--
+
+                parent.interval = $interval(function(){
+                    parent.time+=67
+                    parent.timerText = (parent.time/1000).toFixed(3)
+                }, 67)
             })
+    }
+
+    this.updateTime = function() {}
+
+    this.clicked = function() {
+        if(!this.going) {
+            alert("Wait until the screen flashes to click")
+            return
+        }
+
+        $interval.cancel(this.interval)
+        this.going = false
+        this.flashing = false
+        this.buttonText = "Wait"
+
+        this.scores.push(this.time)
+        this.time = 0
+
+        if(this.flashesLeft > 0)
+            this.wait()
+        else
+            this.finish()
+    }
+
+    this.finish = function() {
+        var score = 0
+        for(var i=0;i<this.scores.length;i++)
+            score += this.scores[i]
+        console.log(score)
+
+        $ionicHistory.nextViewOptions({
+            disableBack:true
+        })
+
+        $state.go('app.home')
     }
 })
 .controller('BasicMathCtrl',function($scope, $timeout){
