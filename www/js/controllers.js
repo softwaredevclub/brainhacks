@@ -44,12 +44,19 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('ScreenflashCtrl', function($scope, $timeout) {
+.controller('ScreenflashCtrl', function($scope, $timeout, $interval, $location) {
+    var parent = this
+
     this.started = false
     this.going = false
+
     this.buttonText = "Wait"
-    this.flashesLeft = 5
+    this.timerText = "Wait for flash"
+
+    this.flashesLeft = 4
     this.flashing = false
+    this.time = 0
+    this.scores = []
 
     this.start = function() {
         this.started = true;
@@ -58,10 +65,45 @@ angular.module('starter.controllers', [])
     }
 
     this.wait = function() {
-        $timeout(function(){}, 1000)
+        $timeout(function(){}, Math.random() * 5000 + 1000)
             .then(function() {
-                this.flashing = true
+                parent.flashing = true
+                parent.buttonText = "Click Me"
+                parent.going = true
+                parent.flashesLeft--
+
+                parent.interval = $interval(function(){
+                    parent.time+=67
+                    parent.timerText = (parent.time/1000).toFixed(3)
+                }, 67)
             })
+    }
+
+    this.updateTime = function() {}
+
+    this.clicked = function() {
+        if(!this.going) {
+            alert("Wait until the screen flashes to click")
+            console.log('too soon')
+            return
+        }
+
+        $interval.cancel(this.interval)
+        this.going = false
+        this.flashing = false
+        this.buttonText = "Wait"
+
+        this.scores.push(this.time)
+        this.time = 0
+
+        if(this.flashesLeft > 0)
+            this.wait()
+        else
+            this.finish()
+    }
+
+    this.finish = function() {
+        $location.path('app/home')
     }
 })
 

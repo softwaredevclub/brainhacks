@@ -43,7 +43,7 @@ ion-content #title {
 	display: block;
 	width:50%;
 	height:50%;
-	margin: auto; 
+	margin: auto;
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
@@ -61,7 +61,7 @@ ion-content #title {
 	border: none;
 	padding: 5px;
 	background: transparent;
-	
+
 }
 
 .pull-center {
@@ -74,8 +74,9 @@ ion-content #title {
 	margin-top:60%;
 }
 
-.flashing {
+.flash-back {
 	background-color:red !important;
+	background-image:none;
 }
 
 #game-wrap {
