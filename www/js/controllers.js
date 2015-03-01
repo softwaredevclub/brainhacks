@@ -320,7 +320,7 @@ angular.module('starter.controllers', [])
           arr = [c]
           console.log(this.started)
           this.generateWrongAnswers(arr,Math.max(2*c,14))
-          this.problem = a + " * " + b + " = ?"
+          this.problem = a + " \u00D7 " + b + " = ?"
           this.correctAnswer = c
           break
         case 3:
