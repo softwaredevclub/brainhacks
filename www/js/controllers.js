@@ -83,7 +83,8 @@ angular.module('starter.controllers', [])
     this.calibrate = function() {
         console.log('hi')
         $rootScope.calibrating = true
-        $rootScope.calTests = ['app.screenflash', 'app.strooptest', 'app.shopping', 'app.gravityball']
+        $rootScope.calTests = ['app.screenflash', 'app.strooptest', 'app.shopping', 'app.gravityball', 'app.basicmath']
+
         $state.go($rootScope.calTests[0])
     }
 })
@@ -268,7 +269,7 @@ angular.module('starter.controllers', [])
         $rootScope.finishTest('screenflash', score)
     }
 })
-.controller('BasicMathCtrl',function($scope, $timeout){
+.controller('BasicMathCtrl',function($scope, $timeout,$rootScope){
   var parent = this
   this.started = false
   $scope.answers = [0,0,0,0,0]
@@ -355,9 +356,9 @@ angular.module('starter.controllers', [])
       if (this.iteration ==8){
         this.totalTimeElapsed /= 1000
         console.log("You've finished!\nTotal time Elapsed: " + this.totalTimeElapsed +"\nCorrect Answers: " + this.correctAnswers + "/8")
-        this.finalScore = this.totalTimeElapsed + (8 - this.correctAnswers)*6
+        this.finalScore = this.totalTimeElapsed + (8 - this.correctAnswers)*(8 - this.correctAnswers)/3 + 4*(8 - this.correctAnswers)
         console.log("Basic Math Score", this.finalScore)
-        return
+        $rootScope.finishTest('basicMath', this.finalScore)
       }
       $timeout(function(){
         parent.clicked= 0
