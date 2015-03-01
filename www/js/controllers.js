@@ -107,5 +107,85 @@ angular.module('starter.controllers', [])
     }
 })
 
+.controller('StrooptestCtrl', function($scope, $stateParams) {
+    this.started=false;
+    this.colorArray = ['red','blue', 'green', 'yellow','purple', 'orange']
+    this.color1 = 'black'
+    this.word = 'defaultValue'
+    this.numberPlays = 1
+    this.startTime = 0
+    this.endTime = 0
+    this.numberLoss = 0
+
+
+
+    this.selColors = function() {
+      this.color1 = this.colorArray[parseInt(Math.random()*this.colorArray.length)]
+      this.word = this.colorArray[parseInt(Math.random()*this.colorArray.length)]
+      while (this.color1 == this.word){
+        this.word = this.colorArray[parseInt(Math.random()*this.colorArray.length)]
+        console.log("Color selection collision")
+      }
+
+    }
+
+    this.start = function() {
+        if (this.numberPlays == 1){
+          this.d1 = new Date()
+          this.startTime = this.d1.getTime()
+        }
+        this.started = true
+        this.selColors()
+        this.fillButton()
+
+    }
+
+    this.fillButton = function() {
+          this.randieColor = this.colorArray[parseInt(Math.random()*this.colorArray.length)]
+          while (this.randieColor == this.color1 ||
+            this.randieColor == this.word){
+                this.randieColor = this.colorArray[parseInt(Math.random()*this.colorArray.length)]
+            }
+          this.array = [this.color1, this.word, this.randieColor]
+          var shuffle = function(o){ //v1.0
+              for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+              return o;
+          };
+          shuffle(this.array)
+
+    }
+
+    this.clicked = function(clickedString){
+      console.log(clickedString)
+      this.numberPlays++
+      if(clickedString == this.color1){
+        this.numberWins++
+        console.log('win')
+      }
+      else {
+        console.log('loss')
+        this.numberLoss++
+        }
+
+      if (this.numberPlays > 5){
+        this.d2 = new Date()
+        this.endTime = this.d2.getTime()
+        console.log("startTime",this.startTime)
+        console.log("endTime",this.endTime)
+        this.resultTime = (this.endTime - this.startTime)/1000 + 2*this.numberLoss
+        alert('The game is over. Time was: ' + this.resultTime + " seconds" + " with losses: " + this.numberLoss)
+
+
+      }
+      else {
+        this.start()
+      }
+
+    }
+
+
+
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+})
