@@ -1,23 +1,26 @@
 
 
-<ion-view view-title="Stroop Test">
+<ion-view hide-nav-bar="true" view-title="Stroop Test">
     <ion-content ng-controller="StrooptestCtrl as Ctrl2">
         <div id="game-wrap">
             <div id="instructions" ng-hide="Ctrl2.started">
-                <h1>Stroop test</h1>
-                <h2>Select the color the word is displayed in</h2>
-                <h3>Example:</h3>
+                <h1 id="test-name">Stroop test</h1>
+                <h3>Select the color the word is displayed in</h3>
+                <h4>Example:</h4>
 
-                <h3 id='exTxt'>yellow</h3>
+                <h5 id='exTxt'>yellow</h5>
 
-                <h3>correct answer: blue</h3>
-                <button class="button button-block button-balanced" ng-click="Ctrl2.start()">
-                    Start
-                </button>
+                <h6>correct answer: blue</h6>
+                <ion-item class="menu_option main">
+                    <div class="icon-holder">
+                        <a ng-click="Ctrl2.start()"><span class="icon-bike"></span></a>
+                    </div>
+                    <div class="stem"></div>
+                        START
+                </ion-item>
             </div>
             <div id="game" ng-show="Ctrl2.started">
               <h1>Stroop test</h1>
-              <h2>Select the color the word is displayed in</h2>
                 <h1 style="color:{{Ctrl2.color1}}">{{ Ctrl2.word }}</h1>
 
                 <button class="button pull-center "
