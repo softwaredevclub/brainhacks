@@ -70,7 +70,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic.contrib.ui.tin
           }
       }
   })
-  
+
+  .state('app.history', {
+      url: "/history",
+      views: {
+          'menuContent': {
+              templateUrl: "templates/history.html"
+          }
+      }
+  })
+
   .state('app.basicmath',{
     url: "/test/basicmath",
     views:{

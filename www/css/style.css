@@ -209,7 +209,7 @@ div .stem {
     position:relative;
     text-align:center
 }
-<<<<<<< HEAD
+
 .list a {
 	font-family: 'Lato-Light', Helvetica, Arial, sans-serif;
 	/*font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;*/
@@ -239,8 +239,6 @@ div .stem {
 	background: transparent;
 	padding-bottom: 10px;
 }
-=======
->>>>>>> 4899ed942635e4088a7c86d5e1a4fc8f88847bd3
 
 ion-item {
 	border-style: none;
@@ -314,7 +312,17 @@ ion-content #title {
 	padding-bottom: 10px;
 
 }
-.list ion-item {
+
+h3 .result-title{
+	color: white;
+}
+
+#results-chart {
+	display: block;
+	margin: auto;
+}
+
+.different-tests {
 	float: left;
 	width:50%;
 }

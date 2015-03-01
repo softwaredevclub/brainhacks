@@ -1,14 +1,22 @@
 <ion-view hide-nav-bar="true" view-title="Test Results">
     <ion-content ng-controller="AnalyticsCtrl as Ctrl">
       <h1 id="title">Test Results</h1>
-        <div class="list">
+        <!--<div class="list">
           <div class="item range range-positive" ng-repeat="result in Ctrl.results">
+
+
             <h3>{{result.test}}</h3>
             <input type="range" name="volume" min="0" max="100" value="{{ result.scoreScaled }}" disabled>
             <p>{{result.scoreText}}</p>
-          </div>
-        </div>
 
+          </div>
+        </div>-->
+
+        
+
+        <div id="result-chart-container">
+            <canvas id="results-chart"></canvas>
+        </div>
         <ion-item class="menu_option main">
           <div class="icon-holder">
             <a ng-click="Ctrl.getHome()"><span class="icon-bike"></span></a>
@@ -17,7 +25,7 @@
                 Home
         </ion-item>
 
-      </ion-item>
+    
 
 
     </ion-content>
