@@ -100,32 +100,25 @@ ion-content #title {
 #game-wrap {
 	height:100%;
 }
-<<<<<<< HEAD
-.wrongAnswer.animate.unclickedAnswer {
-	-webkit-animation: colorChangeGray 0.4s;
-	background-color: gray;
-}
-@-webkit-keyframes colorChangeGray{
-	from {background-color:transparent;}
-	to {background-color :gray;}
-}
-.correctAnswer.animate {
-	-webkit-animation: colorChangeGreen 0.4s;
+
+.animate-leave.correct {
+	-webkit-animation: colorChangeGreen 1s;
 	background-color: green;
 }
 @-webkit-keyframes colorChangeGreen{
-	from {background-color:transparent;}
-	to {background-color :green;}
+	0% {background-color:transparent;}
+	50% {background-color :green;}
+	100% {background-color: green}
 }
-.wrongAnswer.animate.clickedAnswer{
-	-webkit-animation: colorChangeRed 0.4s;
+.animate-leave.incorrect {
+	-webkit-animation: colorChangeRed 1s;
 	background-color: red;
 }
 @-webkit-keyframes colorChangeRed{
-	from {background-color:transparent;}
-	to {background-color :red;}
+	0% {background-color:transparent;}
+	50% {background-color :red;}
+	100%{background-color: green;}
 }
-=======
 
 #gravity-ball-canvas {
 	width:100%;
@@ -148,4 +141,3 @@ ion-content #title {
 	left:10px;
 	background-color:white;
 }
->>>>>>> 20dbeabfa007d1893a5562bf9f05433aa7710140
