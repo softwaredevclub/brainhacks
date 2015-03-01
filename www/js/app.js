@@ -68,13 +68,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic.contrib.ui.tin
       }
   })
 
-<<<<<<< HEAD
   .state('app.strooptest', {
       url: "/test/strooptest",
       views: {
           'menuContent': {
               templateUrl: "templates/tests/strooptest.html"
-=======
+              }
+          }
+      })
+
   .state('app.gravityball', {
       url: "/test/gravityball",
       views: {
@@ -89,7 +91,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic.contrib.ui.tin
       views: {
           'menuContent': {
               templateUrl: "templates/tests/shopping.html"
->>>>>>> 37a6ca40235a8a80c70a3bd3cd11c47abc7d76d4
           }
       }
   })

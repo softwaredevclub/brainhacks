@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicHistory, $state, $rootScope) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -10,6 +10,34 @@ angular.module('starter.controllers', [])
   }).then(function(modal) {
     $scope.modal = modal;
   });
+
+  $rootScope.finishTest = function(test, score) {
+      var myScore = {score: score, test: test, cal: $rootScope.calibrating};
+      $rootScope.myScores.group(myScore);
+      console.log($rootScope.calibrating)
+      console.log($rootScope)
+
+      if($rootScope.calibrating) {
+          if($rootScope.calTests.length > 1) {
+              console.log($rootScope.calTests)
+              $rootScope.calTests = $rootScope.calTests.splice(1)
+              console.log($rootScope.calTests)
+              $state.go($rootScope.calTests[0])
+          } else {
+              $rootScope.myScores.map(function(score){
+                  console.log(score)
+              })
+              
+              $state.go('app.home')
+          }
+      } else {
+          $ionicHistory.nextViewOptions({
+              disableBack:true
+          })
+
+          $state.go('app.home')
+      }
+  }
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
@@ -31,6 +59,13 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
+  $rootScope.myID = localStorage.getItem('myID');
+  if(!$rootScope.myID){ localStorage.setItem('myID', $rootScope.myID = "id" + Gun.text.random()) }
+
+  $rootScope.gun = Gun('https://gunjs.herokuapp.com/gun');
+  window.scores = $rootScope.myScores = $rootScope.gun.load("brainhacks/" + $rootScope.myID + "/scores").group();
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -44,7 +79,16 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('GravityBallCtrl', function($scope, $interval, $ionicHistory, $state) {
+.controller('HomeCtrl', function($scope, $state, $rootScope) {
+    this.calibrate = function() {
+        console.log('hi')
+        $rootScope.calibrating = true
+        $rootScope.calTests = ['app.screenflash', 'app.strooptest', 'app.shopping', 'app.gravityball']
+        $state.go($rootScope.calTests[0])
+    }
+})
+
+.controller('GravityBallCtrl', function($scope, $interval, $ionicHistory, $state, $rootScope) {
     var parent = this
     var canvas = document.getElementById('gravity-ball-canvas')
     var ctx = canvas.getContext('2d')
@@ -153,16 +197,12 @@ angular.module('starter.controllers', [])
             console.log(this.timer)
             navigator.accelerometer.clearWatch(parent.watchId)
 
-            $ionicHistory.nextViewOptions({
-                disableBack:true
-            })
-
-            $state.go('app.home')
+            $rootScope.finishTest('gravityball', this.timer)
         }
     }
 })
 
-.controller('ScreenflashCtrl', function($scope, $timeout, $interval, $location, $ionicHistory, $state) {
+.controller('ScreenflashCtrl', function($scope, $timeout, $interval, $location, $ionicHistory, $state, $rootScope) {
     var parent = this
 
     this.started = false
@@ -225,15 +265,11 @@ angular.module('starter.controllers', [])
             score += this.scores[i]
         console.log(score)
 
-        $ionicHistory.nextViewOptions({
-            disableBack:true
-        })
-
-        $state.go('app.home')
+        $rootScope.finishTest('screenflash', score)
     }
 })
 
-.controller('ShoppingCtrl', function($scope, $http, $timeout, $ionicHistory, $state) {
+.controller('ShoppingCtrl', function($scope, $http, $timeout, $ionicHistory, $state, $rootScope) {
     var parent = this
     this.started = false
 
@@ -301,15 +337,11 @@ angular.module('starter.controllers', [])
         var score = yes
         console.log(score)
 
-        $ionicHistory.nextViewOptions({
-            disableBack:true
-        })
-
-        $state.go('app.home')
+        $rootScope.finishTest('shopping', score)
     }
 })
 
-.controller('StrooptestCtrl', function($scope, $stateParams) {
+.controller('StrooptestCtrl', function($scope, $stateParams, $rootScope) {
     this.started=false;
     this.colorArray = ['red','blue', 'green', 'yellow','purple', 'orange']
     this.color1 = 'black'
@@ -369,15 +401,8 @@ angular.module('starter.controllers', [])
         this.numberLoss++
         }
 
-      if (this.numberPlays > 5){
-        this.d2 = new Date()
-        this.endTime = this.d2.getTime()
-        console.log("startTime",this.startTime)
-        console.log("endTime",this.endTime)
-        this.resultTime = (this.endTime - this.startTime)/1000 + 2*this.numberLoss
-        alert('The game is over. Time was: ' + this.resultTime + " seconds" + " with losses: " + this.numberLoss)
-
-
+      if (this.numberPlays > 5) {
+          this.finish()
       }
       else {
         this.start()
@@ -385,7 +410,13 @@ angular.module('starter.controllers', [])
 
     }
 
+    this.finish = function() {
+        this.d2 = new Date()
+        this.endTime = this.d2.getTime()
+        var score = (this.endTime - this.startTime)/1000 + 2*this.numberLoss
 
+        $rootScope.finishTest('stroop', score)
+    }
 
 })
 
