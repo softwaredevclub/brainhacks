@@ -1,0 +1,33 @@
+<ion-view view-title="Shopping Test">
+    <ion-content ng-controller="ShoppingCtrl as Ctrl" id="shopping-content">
+        <div id="game-wrap">
+            <div id="instructions" ng-hide="Ctrl.started">
+                <h1>Shopping test</h1>
+                <h3>Swipe right if you want to buy the product, or swipe left if not.</h3>
+                <button class="button button-block button-balanced" ng-click="Ctrl.start()">
+                    Start
+                </button>
+            </div>
+            <div id="game" class="shopping-game" ng-show="Ctrl.started">
+                <h1>Shopping Test</h1>
+                <td-cards>
+                    <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)"
+                          on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)"
+                          on-partial-swipe="cardPartialSwipe(amt)" class="card">
+                        <div class="item item-text-wrap item-divider shopping-name">
+                            {{ card.name }}
+                        </div>
+                        <div class="image shopping-image item item-image">
+                             <div class="no-text overlayBox"><div class="noBox boxed">Nah</div></div>
+                             <img ng-src="{{card.image}}" class="pull-center">
+                             <div class="yes-text overlayBox"><div class="yesBox boxed" id="centerMe">Yeah</div></div>
+                         </div>
+                         <div class="item item-text-wrap item-divider">
+                             {{ card.price | currency }}
+                         </div>
+                    </td-card>
+                </td-cards>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

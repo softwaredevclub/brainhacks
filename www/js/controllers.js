@@ -329,5 +329,161 @@ angular.module('starter.controllers', [])
   }
 })
 
+.controller('ShoppingCtrl', function($scope, $http, $timeout, $ionicHistory, $state) {
+    var parent = this
+    this.started = false
+
+    $scope.cards = []
+
+    var width = window.screen.availWidth
+    var height = window.screen.availHeight
+
+    var yes = 0
+    var no = 0
+
+    $scope.addCard = function(card) {
+        var newCard = card;
+        newCard.id = Math.random();
+        $scope.cards.push(angular.extend({}, newCard));
+    }
+
+    $scope.cardSwipedLeft = function(index) {
+        console.log('Left swipe')
+        no++
+    }
+
+    $scope.cardSwipedRight = function(index) {
+        console.log('Right swipe')
+        yes++
+    }
+
+    $scope.cardDestroyed = function(index) {
+        $scope.cards.splice(index, 1);
+        console.log('Card removed');
+
+        if($scope.cards.length === 0)
+            parent.finish()
+    }
+
+    this.start = function() {
+        this.started = true;
+
+        var page = Math.floor(Math.random()*898 + 1)
+        var bbUrl = 'https://api.remix.bestbuy.com/v1/products(regularPrice<100)?apiKey='
+            + '4sthd3w5fj7fsax2qkm8vpy4&sort=bestSellingRank.asc'
+            + '&show=image,name,regularPrice,bestSellingRank&pageSize=5&page=' + page + '&format=json'
+
+        $http.get(bbUrl)
+            .success(function(data, status, headers, config) {
+                for(var i=0;i<data.products.length;i++)
+                    $scope.addCard({name: data.products[i].name, image: data.products[i].image, price: data.products[i].regularPrice})
+
+                $timeout(function(){}, 1000)
+                    .then(function() {
+                        var images = document.getElementsByClassName("shopping-image");
+                        console.log(height/2 + "px")
+                        for(i=0;i<images.length;i++) {
+                            images[i].style.height = height/2 + "px"
+                            images[i].style.width = width*(9/10) + "px"
+                        }
+                    })
+
+            }).error(function(data, status, headers, config) {
+                console.log('error')
+            })
+    }
+
+    this.finish = function() {
+        var score = yes
+        console.log(score)
+
+        $ionicHistory.nextViewOptions({
+            disableBack:true
+        })
+
+        $state.go('app.home')
+    }
+})
+
+.controller('StrooptestCtrl', function($scope, $stateParams) {
+    this.started=false;
+    this.colorArray = ['red','blue', 'green', 'yellow','purple', 'orange']
+    this.color1 = 'black'
+    this.word = 'defaultValue'
+    this.numberPlays = 1
+    this.startTime = 0
+    this.endTime = 0
+    this.numberLoss = 0
+
+
+
+    this.selColors = function() {
+      this.color1 = this.colorArray[parseInt(Math.random()*this.colorArray.length)]
+      this.word = this.colorArray[parseInt(Math.random()*this.colorArray.length)]
+      while (this.color1 == this.word){
+        this.word = this.colorArray[parseInt(Math.random()*this.colorArray.length)]
+        console.log("Color selection collision")
+      }
+
+    }
+
+    this.start = function() {
+        if (this.numberPlays == 1){
+          this.d1 = new Date()
+          this.startTime = this.d1.getTime()
+        }
+        this.started = true
+        this.selColors()
+        this.fillButton()
+
+    }
+
+    this.fillButton = function() {
+          this.randieColor = this.colorArray[parseInt(Math.random()*this.colorArray.length)]
+          while (this.randieColor == this.color1 ||
+            this.randieColor == this.word){
+                this.randieColor = this.colorArray[parseInt(Math.random()*this.colorArray.length)]
+            }
+          this.array = [this.color1, this.word, this.randieColor]
+          var shuffle = function(o){ //v1.0
+              for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+              return o;
+          };
+          shuffle(this.array)
+
+    }
+
+    this.clicked = function(clickedString){
+      console.log(clickedString)
+      this.numberPlays++
+      if(clickedString == this.color1){
+        this.numberWins++
+        console.log('win')
+      }
+      else {
+        console.log('loss')
+        this.numberLoss++
+        }
+
+      if (this.numberPlays > 5){
+        this.d2 = new Date()
+        this.endTime = this.d2.getTime()
+        console.log("startTime",this.startTime)
+        console.log("endTime",this.endTime)
+        this.resultTime = (this.endTime - this.startTime)/1000 + 2*this.numberLoss
+        alert('The game is over. Time was: ' + this.resultTime + " seconds" + " with losses: " + this.numberLoss)
+
+
+      }
+      else {
+        this.start()
+      }
+
+    }
+
+
+
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+})
