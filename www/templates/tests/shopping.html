@@ -19,7 +19,7 @@
                     <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)"
                           on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)"
                           on-partial-swipe="cardPartialSwipe(amt)" class="card">
-                        <div class="item item-text-wrap item-divider shopping-name">
+                        <div class="item item-text-wrap item-divider shopping-name item-shopping">
                             {{ card.name }}
                         </div>
                         <div class="image shopping-image item item-image">
@@ -27,7 +27,7 @@
                              <img ng-src="{{card.image}}" class="pull-center">
                              <div class="yes-text overlayBox"><div class="yesBox boxed" id="centerMe">Yeah</div></div>
                          </div>
-                         <div class="item item-text-wrap item-divider">
+                         <div class="item item-text-wrap item-divider item-shopping">
                              {{ card.price | currency }}
                          </div>
                     </td-card>

@@ -116,10 +116,10 @@
 .icon-holder a {
 	color: #fff;
   	display: table-cell;
-  	vertical-align: middle; 
-  	text-align: center; 
+  	vertical-align: middle;
+  	text-align: center;
   	height: 50px;
- 	width: 50px;   
+ 	width: 50px;
 }
 
 #game .icon-holder {
@@ -152,7 +152,7 @@
     left: 50%;
     /*border-left: 1pt solid #fff;*/
     border-style: solid;
-    -webkit-border-image: 
+    -webkit-border-image:
     -webkit-gradient(linear, 0 0, 0 100%, from(white), to(rgba(0, 0, 0, 0))) 1 100%;
     border-width: 1px;
 }
@@ -216,7 +216,7 @@ ion-content #title {
 	display: block;
 	width:30%;
 	height:30%;
-	margin: auto; 
+	margin: auto;
 	padding:0px;
 	border-top: 20px;
 	border-bottom: 20px;
@@ -261,6 +261,7 @@ ion-content #title {
 #game-wrap {
 	height:100%;
 }
+
 .disable-user-behavior .list .item {
 	padding: 10px;
 	margin-bottom: 10px;
@@ -410,4 +411,9 @@ td-card img {
 	font-size:16px;
 	letter-spacing: 0;
 	line-height: 20px;
+}
+
+.item-shopping {
+	color:black !important;
+	background-color:#f5f5f5 !important;
 }
