@@ -82,9 +82,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic.contrib.ui.tin
       views: {
           'menuContent': {
               templateUrl: "templates/tests/strooptest.html"
-            }
+              }
           }
-        })
+      })
+
   .state('app.gravityball', {
       url: "/test/gravityball",
       views: {
