@@ -68,6 +68,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic.contrib.ui.tin
           }
       }
   })
+  
   .state('app.basicmath',{
     url: "/test/basicmath",
     views:{

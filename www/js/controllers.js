@@ -1,6 +1,10 @@
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicHistory, $state, $rootScope) {
+
+  $rootScope.testList = ['app.screenflash', 'app.strooptest', 'app.shopping', 'app.gravityball', 'app.basicmath']
+  $rootScope.calibrating = false
+
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -13,9 +17,8 @@ angular.module('starter.controllers', [])
 
   $rootScope.finishTest = function(test, score) {
       var myScore = {score: score, test: test, cal: $rootScope.calibrating};
+      console.log(test)
       $rootScope.myScores.group(myScore);
-      console.log($rootScope.calibrating)
-      console.log($rootScope)
 
       if($rootScope.calibrating) {
           if($rootScope.calTests.length > 1) {
@@ -28,6 +31,8 @@ angular.module('starter.controllers', [])
                   console.log(score)
               })
 
+              alert('Thank you for calibrating')
+              $rootScope.calibrating = false
               $state.go('app.home')
           }
       } else {
@@ -35,7 +40,9 @@ angular.module('starter.controllers', [])
               disableBack:true
           })
 
-          $state.go('app.home')
+          $rootScope.lastResults = [myScore]
+
+          $state.go('app.stats')
       }
   }
 
@@ -536,16 +543,38 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('AnalyticsCtrl', function($scope, $stateParams) {
-  this.started=false;
+.controller('AnalyticsCtrl', function($scope, $rootScope) {
+    var parent = this
+    this.results = []
 
-  this.start = function() {
-    this.started = true;
-  }
+    for(var j=0;j<$rootScope.lastResults.length;j++) {
+        console.log(j)
+        this.results.push({avg:1,count:0,scoreScaled:0})
 
-  this.end = function() {
-    this.started = false;
-  }
+        $rootScope.myScores.map(function(score){
+            console.log('in: ' + j)
+            j = 0 // non-blocking issues
+
+            if(score.test === $rootScope.lastResults[j].test && score.cal) {
+                console.log('scaled ' + parent.results[j].scoreScaled)
+                console.log(parent.results[j])
+
+                parent.results[j].count++
+                parent.results[j].avg = parent.results[j].avg * (parent.results[j].count - 1) / parent.results[j].count
+                    + score.score * (1/parent.results[j].count)
+                console.log('pra: ' + parent.results[j].avg)
+
+                var scaled = $rootScope.lastResults[j].score * 100 / parent.results[j].avg
+                console.log('sc: ' + scaled)
+                if(scaled > 100)
+                    parent.results[j].scoreScaled = 100
+                else
+                    parent.results[j].scoreScaled = Math.floor(scaled)
+
+
+            }
+        })
+    }
 
 })
 
