@@ -233,5 +233,81 @@ angular.module('starter.controllers', [])
     }
 })
 
+.controller('ShoppingCtrl', function($scope, $http, $timeout, $ionicHistory, $state) {
+    var parent = this
+    this.started = false
+
+    $scope.cards = []
+
+    var width = window.screen.availWidth
+    var height = window.screen.availHeight
+
+    var yes = 0
+    var no = 0
+
+    $scope.addCard = function(card) {
+        var newCard = card;
+        newCard.id = Math.random();
+        $scope.cards.push(angular.extend({}, newCard));
+    }
+
+    $scope.cardSwipedLeft = function(index) {
+        console.log('Left swipe')
+        no++
+    }
+
+    $scope.cardSwipedRight = function(index) {
+        console.log('Right swipe')
+        yes++
+    }
+
+    $scope.cardDestroyed = function(index) {
+        $scope.cards.splice(index, 1);
+        console.log('Card removed');
+
+        if($scope.cards.length === 0)
+            parent.finish()
+    }
+
+    this.start = function() {
+        this.started = true;
+
+        var page = Math.floor(Math.random()*898 + 1)
+        var bbUrl = 'https://api.remix.bestbuy.com/v1/products(regularPrice<100)?apiKey='
+            + '4sthd3w5fj7fsax2qkm8vpy4&sort=bestSellingRank.asc'
+            + '&show=image,name,regularPrice,bestSellingRank&pageSize=5&page=' + page + '&format=json'
+
+        $http.get(bbUrl)
+            .success(function(data, status, headers, config) {
+                for(var i=0;i<data.products.length;i++)
+                    $scope.addCard({name: data.products[i].name, image: data.products[i].image, price: data.products[i].regularPrice})
+
+                $timeout(function(){}, 1000)
+                    .then(function() {
+                        var images = document.getElementsByClassName("shopping-image");
+                        console.log(height/2 + "px")
+                        for(i=0;i<images.length;i++) {
+                            images[i].style.height = height/2 + "px"
+                            images[i].style.width = width*(9/10) + "px"
+                        }
+                    })
+
+            }).error(function(data, status, headers, config) {
+                console.log('error')
+            })
+    }
+
+    this.finish = function() {
+        var score = yes
+        console.log(score)
+
+        $ionicHistory.nextViewOptions({
+            disableBack:true
+        })
+
+        $state.go('app.home')
+    }
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });
