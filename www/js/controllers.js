@@ -523,5 +523,11 @@ angular.module('starter.controllers', [])
     this.started = true;
   }
 
+  this.end = function() {
+    this.started = false;
+  }
+
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
