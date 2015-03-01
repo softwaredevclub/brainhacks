@@ -549,24 +549,19 @@ angular.module('starter.controllers', [])
 
     for(var j=0;j<$rootScope.lastResults.length;j++) {
         console.log(j)
-        this.results.push({avg:1,count:0,scoreScaled:0})
+        this.results.push({avg:1,count:0,scoreScaled:0,test:$rootScope.lastResults[j].test})
 
         $rootScope.myScores.map(function(score){
-            console.log('in: ' + j)
             j = 0 // non-blocking issues
 
             if(score.test === $rootScope.lastResults[j].test && score.cal) {
-                console.log('scaled ' + parent.results[j].scoreScaled)
-                console.log(parent.results[j])
-
                 parent.results[j].count++
                 parent.results[j].avg = parent.results[j].avg * (parent.results[j].count - 1) / parent.results[j].count
                     + score.score * (1/parent.results[j].count)
-                console.log('pra: ' + parent.results[j].avg)
 
-                var scaled = $rootScope.lastResults[j].score * 100 / parent.results[j].avg
-                console.log('sc: ' + scaled)
-                if(scaled > 100)
+                var scaled = (parent.results[j].avg / $rootScope.lastResults[j].score) * 100
+                // var scaled = parent.results[j].avg * 100 / ($rootScope.lastResults[j].score+1)
+                if(scaled > 100 || isNaN(scaled))
                     parent.results[j].scoreScaled = 100
                 else
                     parent.results[j].scoreScaled = Math.floor(scaled)

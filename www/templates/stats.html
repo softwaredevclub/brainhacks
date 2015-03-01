@@ -2,6 +2,7 @@
     <ion-content ng-controller="AnalyticsCtrl as Ctrl">
         <div class="list">
           <div class="item range range-positive" ng-repeat="result in Ctrl.results">
+            <h3>{{result.test}}
             <input type="range" name="volume" min="0" max="100" value="{{ result.scoreScaled }}" disabled>
             <p>{{result.scoreScaled}}</p>
           </div>
