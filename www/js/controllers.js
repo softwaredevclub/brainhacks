@@ -353,14 +353,15 @@ angular.module('starter.controllers', [])
         this.correctAnswers++
       }
       this.timingOut = true
-      if (this.iteration ==8){
-        this.totalTimeElapsed /= 1000
-        console.log("You've finished!\nTotal time Elapsed: " + this.totalTimeElapsed +"\nCorrect Answers: " + this.correctAnswers + "/8")
-        this.finalScore = this.totalTimeElapsed + (8 - this.correctAnswers)*(8 - this.correctAnswers)/3 + 4*(8 - this.correctAnswers)
-        console.log("Basic Math Score", this.finalScore)
-        $rootScope.finishTest('basicMath', this.finalScore)
-      }
+      
       $timeout(function(){
+        if (parent.iteration ==8){
+          parent.totalTimeElapsed /= 1000
+          console.log("You've finished!\nTotal time Elapsed: " + parent.totalTimeElapsed +"\nCorrect Answers: " + parent.correctAnswers + "/8")
+          parent.finalScore = parent.totalTimeElapsed + (8 - parent.correctAnswers)*(8 - parent.correctAnswers)/3 + 4*(8 - parent.correctAnswers)
+          console.log("Basic Math Score", parent.finalScore)
+          $rootScope.finishTest('basicMath', parent.finalScore)
+        }
         parent.clicked= 0
         parent.displayProblem()
         parent.timingOut = false
