@@ -32,7 +32,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic.contrib.ui.tin
     }
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.views.transition('android');
+  $ionicConfigProvider.views.maxCache(0);
   $stateProvider
 
   .state('app', {
