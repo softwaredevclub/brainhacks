@@ -27,7 +27,7 @@ angular.module('starter.controllers', [])
               $rootScope.myScores.map(function(score){
                   console.log(score)
               })
-              
+
               $state.go('app.home')
           }
       } else {
@@ -321,8 +321,8 @@ angular.module('starter.controllers', [])
           console.log(this.started)
           this.generateWrongAnswers(arr,Math.max(2*c,5))
           this.problem = a + " * " + b + " = ?"
-          this.correctAnswer = c         
-          break 
+          this.correctAnswer = c
+          break
         case 3:
           var a = Math.ceil(Math.random()*14);
           var b = Math.ceil(Math.random()*12);
@@ -513,6 +513,7 @@ angular.module('starter.controllers', [])
         this.numberLoss++
         }
 
+
       if (this.numberPlays > 5) {
           this.finish()
       }
@@ -529,6 +530,22 @@ angular.module('starter.controllers', [])
 
         $rootScope.finishTest('stroop', score)
     }
+
+  this.end = function() {
+    this.started = false;
+  }
+})
+
+.controller('AnalyticsCtrl', function($scope, $stateParams) {
+  this.started=false;
+
+  this.start = function() {
+    this.started = true;
+  }
+
+  this.end = function() {
+    this.started = false;
+  }
 
 })
 
