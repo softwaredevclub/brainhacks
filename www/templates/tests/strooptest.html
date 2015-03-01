@@ -20,20 +20,20 @@
             </div>
             <div id="game" ng-show="Ctrl2.started">
               <h1>Stroop test</h1>
-                <h1 style="color:{{Ctrl2.color1}}">{{ Ctrl2.word }}</h1>
+                <h2 style="color:{{Ctrl2.color1}}">{{ Ctrl2.word }}</h2>
 
-                <button class="button pull-center "
+                <div class="pull-center multiple-choice2"
                         ng-click="Ctrl2.clicked(Ctrl2.array[0])">
-                    {{ Ctrl2.array[0] }}
-                </button>
-                <button class="button pull-center "
+                    <h3>{{ Ctrl2.array[0] }}</h3>
+                </div>
+                <div class="pull-center multiple-choice2"
                         ng-click="Ctrl2.clicked(Ctrl2.array[1])">
-                    {{ Ctrl2.array[1] }}
-                </button>
-                <button class="button pull-center "
+                    <h3>{{ Ctrl2.array[1] }}</h3>
+                </div>
+                <div class="pull-center multiple-choice2"
                         ng-click="Ctrl2.clicked(Ctrl2.array[2])">
-                    {{ Ctrl2.array[2] }}
-                </button>
+                    <h3>{{ Ctrl2.array[2] }}</h3>
+                </div>
 
 
             </div>
