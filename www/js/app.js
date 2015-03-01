@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ionic.contrib.ui.tinderCards'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -18,6 +18,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       StatusBar.styleDefault();
     }
   });
+})
+
+.directive('noScroll', function() {
+    return {
+        restrict: 'A',
+        link: function($scope, $element, $attr) {
+            $element.on('touchmove', function(e) {
+                e.preventDefault();
+            });
+        }
+    }
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -53,6 +64,24 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       views: {
           'menuContent': {
               templateUrl: "templates/tests/screenflash.html"
+          }
+      }
+  })
+
+  .state('app.gravityball', {
+      url: "/test/gravityball",
+      views: {
+          'menuContent': {
+              templateUrl: "templates/tests/gravityball.html"
+          }
+      }
+  })
+
+  .state('app.shopping', {
+      url: "/test/shopping",
+      views: {
+          'menuContent': {
+              templateUrl: "templates/tests/shopping.html"
           }
       }
   })
