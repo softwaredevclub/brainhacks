@@ -3,8 +3,8 @@ ion-side-menu{
 }
 
 body {
-	background-image: url("../img/mountaindark.jpg");
-	background-size: auto;
+	background-image: url("../img/valley.jpg");
+	background-size: cover;
 
 
 }
@@ -180,7 +180,7 @@ body *{
  	width: 100px;
 }
 
-.icon-tools, .icon-linegraph, .icon-gears, .icon-bike {
+.icon-tools, .icon-linegraph, .icon-gears, .icon-bike, .icon-lightbulb, .icon-hourglass, .icon-basket, .icon-anchor, .icon-hotairballoon {
     font-size: 24px;
     color: #fff;
     margin: 0 auto;
@@ -208,35 +208,6 @@ div .stem {
     height: 10px;
     position:relative;
     text-align:center
-}
-.list a {
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	/*font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;*/
-	font-size: 20px;
-	font-weight: 100;
-	letter-spacing: 2px;
-	line-height: 20px;
-	margin: 0px;
-	text-align: center;
-	color: #fff;
-	border: none;
-	background: transparent;
-	padding-bottom: 10px;
-}
-
-.list .item-divider {
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	/*font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;*/
-	font-size: 25px;
-	font-weight: 200;
-	letter-spacing: 2px;
-	line-height: 20px;
-	margin: 0px;
-	text-align: center;
-	color: #fff;
-	border: none;
-	background: transparent;
-	padding-bottom: 10px;
 }
 
 ion-item {
@@ -310,6 +281,10 @@ ion-content #title {
 	background: transparent;
 	padding-bottom: 10px;
 
+}
+.list ion-item {
+	float: left;
+	width:50%;
 }
 
 #menu_wrap {
@@ -493,7 +468,6 @@ td-card img {
 }
 
 .item-divider {
-	text-decoration: underline;
 	font-size: 16pt;
 }
 a.item {
