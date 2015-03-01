@@ -360,7 +360,7 @@ angular.module('starter.controllers', [])
         this.correctAnswers++
       }
       this.timingOut = true
-      
+
       $timeout(function(){
         if (parent.iteration ==8){
           parent.totalTimeElapsed /= 1000
@@ -544,10 +544,11 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('AnalyticsCtrl', function($scope, $rootScope) {
+.controller('AnalyticsCtrl', function($scope, $rootScope, $state) {
     var parent = this
     this.results = []
 
+    if($rootScope.lastResults != null) {
     for(var j=0;j<$rootScope.lastResults.length;j++) {
         console.log(j)
         this.results.push({avg:1,count:0,scoreScaled:0,test:$rootScope.lastResults[j].test,scoreText:"0"})
@@ -572,6 +573,12 @@ angular.module('starter.controllers', [])
             }
         })
     }
+      this.getHome = function() {
+        console.log("going home now")
+        $state.go('app.home')
+
+      }
+  }
 
 })
 
