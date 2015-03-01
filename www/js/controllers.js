@@ -549,7 +549,7 @@ angular.module('starter.controllers', [])
 
     for(var j=0;j<$rootScope.lastResults.length;j++) {
         console.log(j)
-        this.results.push({avg:1,count:0,scoreScaled:0,test:$rootScope.lastResults[j].test})
+        this.results.push({avg:1,count:0,scoreScaled:0,test:$rootScope.lastResults[j].test,scoreText:"0"})
 
         $rootScope.myScores.map(function(score){
             j = 0 // non-blocking issues
@@ -560,12 +560,13 @@ angular.module('starter.controllers', [])
                     + score.score * (1/parent.results[j].count)
 
                 var scaled = (parent.results[j].avg / $rootScope.lastResults[j].score) * 100
+                parent.results[j].scoreText = scaled.toFixed(2)
+                console.log(scaled)
                 // var scaled = parent.results[j].avg * 100 / ($rootScope.lastResults[j].score+1)
                 if(scaled > 100 || isNaN(scaled))
                     parent.results[j].scoreScaled = 100
                 else
                     parent.results[j].scoreScaled = Math.floor(scaled)
-
 
             }
         })
