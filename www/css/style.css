@@ -165,21 +165,21 @@ ion-content #title {
 }
 
 .correct {
-	-webkit-animation: colorChangeGreen 1s;
+	-webkit-animation: colorChangeGreen 0.8s;
 	background-color: green;
 }
 @-webkit-keyframes colorChangeGreen{
 	0% {background-color:transparent;}
-	50% {background-color :green;}
+	70% {background-color :green;}
 	100% {background-color: green}
 }
 .incorrect.clicked {
-	-webkit-animation: colorChangeRed 1s;
+	-webkit-animation: colorChangeRed 0.8s;
 	background-color: red;
 }
 @-webkit-keyframes colorChangeRed{
 	0% {background-color:transparent;}
-	50% {background-color :red;}
+	70% {background-color :red;}
 	100%{background-color: red;}
 }
 .answerClass.activated {

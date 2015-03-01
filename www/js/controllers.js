@@ -243,22 +243,26 @@ angular.module('starter.controllers', [])
   this.animate = false
   this.clicked = 0
   this.iteration = 0
+  this.totalTimeElapsed = 0
+  this.lastTime = 0
+  this.timingOut = false
+  this.correctAnswers = 0
+  this.finalScore = 0
   this.start = function(){
     this.started = true;
     this.displayProblem()
   }
   this.displayProblem = function(){
+      var date = new Date()
+      this.lastTime = date.getTime()
       var arr = []
-      var problemType = Math.floor(Math.random()*4)
-      console.log("problemType",problemType)
-      problemType = 2
-      switch(problemType){
+      switch(this.iteration%4){
         case 0:
           var a = Math.ceil(Math.random()*19);
           var b = Math.ceil(Math.random()*21);
           var c = a+b;
           arr = [c];
-          this.generateWrongAnswers(arr,2*c)
+          this.generateWrongAnswers(arr,Math.max(2*c,5))
           this.problem = a + " + " + b + " = ?"
           this.correctAnswer = c
         case 1:
@@ -267,7 +271,7 @@ angular.module('starter.controllers', [])
           var c = a+b;
           arr = [b];
           console.log("correct answer:", b)
-          this.generateWrongAnswers(arr,2*b)
+          this.generateWrongAnswers(arr,Math.max(2*b, 5))
           this.problem = c + " - " + a + " = ?"
           this.correctAnswer = b
           break
@@ -278,7 +282,7 @@ angular.module('starter.controllers', [])
           console.log("correctAnswer:", c)
           arr = [c]
           console.log(this.started)
-          this.generateWrongAnswers(arr,2*c)
+          this.generateWrongAnswers(arr,Math.max(2*c,5))
           this.problem = a + " * " + b + " = ?"
           this.correctAnswer = c         
           break 
@@ -289,8 +293,8 @@ angular.module('starter.controllers', [])
           console.log("correctAnswer:", b)
           arr = [b]
           console.log(this.started)
-          this.generateWrongAnswers(arr,2*b)
-          this.problem = c + " asdfads " + a + " = ?"
+          this.generateWrongAnswers(arr,Math.max(2*b,5))
+          this.problem = c + " \u00F7 " + a + " = ?"
           this.correctAnswer = b
           break
       }
@@ -301,15 +305,30 @@ angular.module('starter.controllers', [])
 
   }
   this.checkResponse = function(answer){
+      if (this.timingOut){
+        return
+      }
+      var date = new Date()
+      this.totalTimeElapsed += date.getTime() - this.lastTime
       this.clicked = answer
       this.iteration++
+      if(answer == this.correctAnswer){
+        this.correctAnswers++
+      }
+      this.timingOut = true
+      if (this.iteration ==8){
+        this.totalTimeElapsed /= 1000
+        console.log("You've finished!\nTotal time Elapsed: " + this.totalTimeElapsed +"\nCorrect Answers: " + this.correctAnswers + "/8")
+        this.finalScore = this.totalTimeElapsed + (8 - this.correctAnswers)*6
+        console.log("Basic Math Score", this.finalScore)
+        return
+      }
       $timeout(function(){
         parent.clicked= 0
         parent.displayProblem()
-      }, 1000)
-        // $scope.answers =[]
-        // $scope.answers.push({"number":3,"animation":"","index":0})
-      
+        parent.timingOut = false
+      }, 800)
+      console.log("totalTimeElapsed",this.totalTimeElapsed)
 
   }
   this.generateWrongAnswers= function(arr, max) {
