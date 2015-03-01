@@ -1,20 +1,29 @@
-<ion-view view-title="Screen Flash Test">
+<ion-view hide-nav-bar="true" view-title="Screen Flash Test">
     <ion-content ng-controller="ScreenflashCtrl as Ctrl" ng-class="{'flash-back': Ctrl.flashing}">
         <div id="game-wrap">
             <div id="instructions" ng-hide="Ctrl.started">
-                <h1>Screen flash test</h1>
-                <h3>Click the button when the screen flashes red.<h3>
-                <button class="button button-block button-balanced" ng-click="Ctrl.start()">
-                    Start
-                </button>
+                <h1 id="test-name">Flash test</h1>
+                <h3>Click the button when the screen flashes red.</h3>
+                <div id="empty"></div>
+                    <ion-item class="menu_option main">
+                    <div class="icon-holder">
+                        <a ng-click="Ctrl.start()"><span class="icon-bike"></span></a>
+                    </div>
+                    <div class="stem"></div>
+                        START
+                    </ion-item>
+              
             </div>
             <div id="game" ng-show="Ctrl.started">
                 <h1>{{ Ctrl.timerText }}</h1>
-
-                <button class="button pull-center going-btn" ng-class="{'button-energized':!Ctrl.going, 'button-dark':Ctrl.going}"
-                        ng-click="Ctrl.clicked()">
-                    {{ Ctrl.buttonText }}
-                </button>
+                <ion-item class="menu_option main">
+                    <div class="icon-holder">
+                    <a class="pull-center going-btn" ng-class="{'button-energized':!Ctrl.going, 'button-dark':Ctrl.going}"
+                            ng-click="Ctrl.clicked()">
+                        {{ Ctrl.buttonText }}
+                    </a>
+                    </div>
+                </ion-item>
             </div>
         </div>
     </ion-content>

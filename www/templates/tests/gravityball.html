@@ -1,12 +1,17 @@
-<ion-view view-title="Gravity Ball Test">
+<ion-view hide-nav-bar="true" iew-title="Gravity Ball Test">
     <ion-content ng-controller="GravityBallCtrl as Ctrl" id="gravity-ball-content">
         <div id="game-wrap">
             <div id="instructions" ng-hide="Ctrl.started">
-                <h1>Gravity ball test</h1>
+                <h1 id="test-name">Gravity ball test</h1>
                 <h3>Tilt your phone to move the red ball into the black hole.</h3>
-                <button class="button button-block button-balanced" ng-click="Ctrl.start()">
-                    Start
-                </button>
+                <div id="empty"></div>
+                <ion-item class="menu_option main">
+                    <div class="icon-holder">
+                        <a ng-click="Ctrl.start()"><span class="icon-bike"></span></a>
+                    </div>
+                    <div class="stem"></div>
+                        START
+                </ion-item>
             </div>
             <div id="game" class="gravity-ball-game" ng-show="Ctrl.started">
                 <h1 id="gravity-ball-timer">{{ Ctrl.timerText }}</h1>
