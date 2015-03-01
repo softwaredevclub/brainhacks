@@ -272,8 +272,8 @@ angular.module('starter.controllers', [])
 .controller('BasicMathCtrl',function($scope, $timeout,$rootScope){
   var parent = this
   this.started = false
-  $scope.answers = [0,0,0,0,0]
-  for(var i = 0;i< 5;i++){
+  $scope.answers = [0,0,0,0]
+  for(var i = 0;i< 4;i++){
     $scope.answers[i] = {"number":0}
   }
   this.problem = ""
@@ -295,42 +295,42 @@ angular.module('starter.controllers', [])
       var arr = []
       switch(this.iteration%4){
         case 0:
-          var a = Math.ceil(Math.random()*19);
-          var b = Math.ceil(Math.random()*21);
+          var a = Math.ceil(Math.random()*14);
+          var b = Math.ceil(Math.random()*14);
           var c = a+b;
           arr = [c];
-          this.generateWrongAnswers(arr,Math.max(2*c,5))
+          this.generateWrongAnswers(arr,Math.max(2*c,14))
           this.problem = a + " + " + b + " = ?"
           this.correctAnswer = c
         case 1:
-          var a = Math.ceil(Math.random()*19);
-          var b = Math.ceil(Math.random()*21);
+          var a = Math.ceil(Math.random()*14);
+          var b = Math.ceil(Math.random()*14);
           var c = a+b;
           arr = [b];
           console.log("correct answer:", b)
-          this.generateWrongAnswers(arr,Math.max(2*b, 5))
+          this.generateWrongAnswers(arr,Math.max(2*b, 14))
           this.problem = c + " - " + a + " = ?"
           this.correctAnswer = b
           break
         case 2:
-          var a = Math.ceil(Math.random()*14);
-          var b = Math.ceil(Math.random()*12);
+          var a = Math.ceil(Math.random()*10);
+          var b = Math.ceil(Math.random()*10);
           var c = a * b;
           console.log("correctAnswer:", c)
           arr = [c]
           console.log(this.started)
-          this.generateWrongAnswers(arr,Math.max(2*c,5))
+          this.generateWrongAnswers(arr,Math.max(2*c,14))
           this.problem = a + " * " + b + " = ?"
           this.correctAnswer = c
           break
         case 3:
-          var a = Math.ceil(Math.random()*14);
-          var b = Math.ceil(Math.random()*12);
+          var a = Math.ceil(Math.random()*10);
+          var b = Math.ceil(Math.random()*10);
           var c = a * b;
           console.log("correctAnswer:", b)
           arr = [b]
           console.log(this.started)
-          this.generateWrongAnswers(arr,Math.max(2*b,5))
+          this.generateWrongAnswers(arr,Math.max(2*b,14))
           this.problem = c + " \u00F7 " + a + " = ?"
           this.correctAnswer = b
           break
@@ -369,7 +369,7 @@ angular.module('starter.controllers', [])
 
   }
   this.generateWrongAnswers= function(arr, max) {
-    while(arr.length < 5){
+    while(arr.length < 4){
       var randomnumber=Math.ceil(Math.random()*max)
       var found=false;
       for(var i=0;i<arr.length;i++){

@@ -1,8 +1,15 @@
-ion-content {
+ion-side-menu{
+	visibility: hidden;
+}
+
+body {
 	background-image: url("../img/valley.jpg");
 	background-size: cover;
 }
-
+body *{
+	background-color: transparent !important;
+	background: transparent !important;
+}
 
 /*.scroll-content {
 	background: red;
