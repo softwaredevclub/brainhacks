@@ -164,7 +164,7 @@ ion-content #title {
 	height:100%;
 }
 
-.animate-leave.correct {
+.correct {
 	-webkit-animation: colorChangeGreen 1s;
 	background-color: green;
 }
@@ -173,14 +173,17 @@ ion-content #title {
 	50% {background-color :green;}
 	100% {background-color: green}
 }
-.animate-leave.incorrect {
+.incorrect.clicked {
 	-webkit-animation: colorChangeRed 1s;
 	background-color: red;
 }
 @-webkit-keyframes colorChangeRed{
 	0% {background-color:transparent;}
 	50% {background-color :red;}
-	100%{background-color: green;}
+	100%{background-color: red;}
+}
+.answerClass.activated {
+	background-color: transparent;
 }
 
 #gravity-ball-canvas {

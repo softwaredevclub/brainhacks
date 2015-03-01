@@ -11,8 +11,12 @@
             <h1>{{Ctrl.problem}}</h1>
 
             <ion-list>
-                <ion-item ng-animate="'animate'" ng-repeat="answer in answers" ng-click="Ctrl.checkResponse(answer.number)"
-                    ng-class="answer.animation">
+                <ion-item ng-repeat="answer in answers" ng-click="Ctrl.checkResponse(answer.number)"
+                    ng-class="{'correct':answer.number == Ctrl.correctAnswer && Ctrl.clicked != 0,
+                    'incorrect': answer.number != Ctrl.correctAnswer,
+                    'clicked': answer.number==Ctrl.clicked,
+                    'answerClass':true
+                }">
                 {{answer.number}}
                 </ion-item>
             </ion-list>

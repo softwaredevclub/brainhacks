@@ -232,19 +232,23 @@ angular.module('starter.controllers', [])
         $state.go('app.home')
     }
 })
-.controller('BasicMathCtrl',function($scope, $timeout, $animate){
+.controller('BasicMathCtrl',function($scope, $timeout){
   var parent = this
   this.started = false
-  $scope.answers = []
+  $scope.answers = [0,0,0,0,0]
+  for(var i = 0;i< 5;i++){
+    $scope.answers[i] = {"number":0}
+  }
   this.problem = ""
   this.animate = false
-
+  this.clicked = 0
+  this.iteration = 0
   this.start = function(){
     this.started = true;
     this.displayProblem()
   }
   this.displayProblem = function(){
-      $scope.answers = []
+      var arr = []
       var problemType = Math.floor(Math.random()*4)
       console.log("problemType",problemType)
       problemType = 2
@@ -253,19 +257,17 @@ angular.module('starter.controllers', [])
           var a = Math.ceil(Math.random()*19);
           var b = Math.ceil(Math.random()*21);
           var c = a+b;
-          var arr = [c];
+          arr = [c];
           this.generateWrongAnswers(arr,2*c)
-          $scope.answers = arr
           this.problem = a + " + " + b + " = ?"
           this.correctAnswer = c
         case 1:
           var a = Math.ceil(Math.random()*19);
           var b = Math.ceil(Math.random()*21);
           var c = a+b;
-          var arr = [b];
+          arr = [b];
           console.log("correct answer:", b)
           this.generateWrongAnswers(arr,2*b)
-          $scope.answers = arr
           this.problem = c + " - " + a + " = ?"
           this.correctAnswer = b
           break
@@ -274,10 +276,9 @@ angular.module('starter.controllers', [])
           var b = Math.ceil(Math.random()*12);
           var c = a * b;
           console.log("correctAnswer:", c)
-          var arr = [c]
+          arr = [c]
           console.log(this.started)
           this.generateWrongAnswers(arr,2*c)
-          $scope.answers = arr
           this.problem = a + " * " + b + " = ?"
           this.correctAnswer = c         
           break 
@@ -286,33 +287,28 @@ angular.module('starter.controllers', [])
           var b = Math.ceil(Math.random()*12);
           var c = a * b;
           console.log("correctAnswer:", b)
-          var arr = [b]
+          arr = [b]
           console.log(this.started)
           this.generateWrongAnswers(arr,2*b)
-          $scope.answers = arr
           this.problem = c + " asdfads " + a + " = ?"
           this.correctAnswer = b
           break
       }
-      var temp = $scope.answers
-      for(var i = 0; i <temp.length; i++){
-        temp[i] = {'number':temp[i],'animation':"", "index":i}
+      for(var i = 0;i< arr.length;i++){
+        $scope.answers[i].number = arr[i]
       }
       console.log("iteration", this.iteration)
 
   }
   this.checkResponse = function(answer){
-      for(var i = 0; i <$scope.answers.length; i++){
-        var x = $scope.answers[i]
-        var state = ""
-        if(x.number == this.correctAnswer){
-          x.animation = "correct"
-        }else if(x.number != this.correctAnswer && x.number ==answer){
-          x.animation = "incorrect"
-        }
-      }
-        $scope.answers =[]
-        $scope.answers.push({"number":3,"animation":"","index":0})
+      this.clicked = answer
+      this.iteration++
+      $timeout(function(){
+        parent.clicked= 0
+        parent.displayProblem()
+      }, 1000)
+        // $scope.answers =[]
+        // $scope.answers.push({"number":3,"animation":"","index":0})
       
 
   }

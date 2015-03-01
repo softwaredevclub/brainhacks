@@ -4,11 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-<<<<<<< HEAD
-angular.module('starter', ['ionic', 'starter.controllers','ngAnimate'])
-=======
-angular.module('starter', ['ionic', 'starter.controllers', 'ionic.contrib.ui.tinderCards'])
->>>>>>> c72e236aa1e7a0bb2037bd3436cc9863ad918d6e
+
+angular.module('starter', ['ionic', 'starter.controllers', 'ionic.contrib.ui.tinderCards','ngAnimate'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -80,13 +77,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic.contrib.ui.tin
     }
   })
 
-<<<<<<< HEAD
   .state('app.strooptest', {
       url: "/test/strooptest",
       views: {
           'menuContent': {
               templateUrl: "templates/tests/strooptest.html"
-=======
+            }
+          }
+        })
   .state('app.gravityball', {
       url: "/test/gravityball",
       views: {
@@ -101,7 +99,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic.contrib.ui.tin
       views: {
           'menuContent': {
               templateUrl: "templates/tests/shopping.html"
->>>>>>> 37a6ca40235a8a80c70a3bd3cd11c47abc7d76d4
           }
       }
   })
