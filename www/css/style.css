@@ -312,7 +312,17 @@ ion-content #title {
 	padding-bottom: 10px;
 
 }
-.list ion-item {
+
+h3 .result-title{
+	color: white;
+}
+
+#results-chart {
+	display: block;
+	margin: auto;
+}
+
+.different-tests {
 	float: left;
 	width:50%;
 }

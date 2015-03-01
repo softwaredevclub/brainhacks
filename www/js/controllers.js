@@ -556,10 +556,11 @@ angular.module('starter.controllers', [])
         datasets: [
             {
                 label: "Fuck me",
+
                 fillColor: "rgba(220,220,220,0.5)",
                 strokeColor: "rgba(220,220,220,0.8)",
                 highlightFill: "rgba(220,220,220,0.75)",
-                highlightStroke: "rgba(220,220,220,1)",
+                highlightStroke: "rgba(255,255,255,1)",
                 data: chartData
             }
         ]
@@ -567,6 +568,7 @@ angular.module('starter.controllers', [])
         scaleBeginAtZero : true,
         scaleShowGridLines : true,
         scaleGridLineColor : "rgba(0,0,0,.05)",
+        scaleFontColor: "rgba(255,255,255,1)",
         scaleGridLineWidth : 1,
         scaleShowHorizontalLines: true,
         scaleShowVerticalLines: true,
