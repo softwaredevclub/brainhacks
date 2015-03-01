@@ -486,6 +486,8 @@ td-card {
 td-card img {
 	max-width: 100%;
 	max-height: 100%;
+	height: auto !important;
+ 	width: auto !important;
 }
 
 .shopping-name {
@@ -508,4 +510,8 @@ a.item {
 
 .shopping-card {
 	background-color:white !important;
+}
+
+.shopping-image {
+	overflow: hidden;
 }
