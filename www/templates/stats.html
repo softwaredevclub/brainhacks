@@ -3,9 +3,12 @@
       <h1 id="title">Test Results</h1>
         <div class="list">
           <div class="item range range-positive" ng-repeat="result in Ctrl.results">
+
+
             <h3>{{result.test}}</h3>
             <input type="range" name="volume" min="0" max="100" value="{{ result.scoreScaled }}" disabled>
             <p>{{result.scoreText}}</p>
+
           </div>
         </div>
 
@@ -16,6 +19,10 @@
           <div class="stem"></div>
                 Home
         </ion-item>
+
+        <div id="result-chart-container">
+            <canvas id="results-chart"></canvas>
+        </div>
 
       </ion-item>
 

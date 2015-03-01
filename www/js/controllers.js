@@ -534,7 +534,7 @@ angular.module('starter.controllers', [])
     this.finish = function() {
         this.d2 = new Date()
         this.endTime = this.d2.getTime()
-        var score = (this.endTime - this.startTime)/1000 + 2*this.numberLoss
+        var score = (this.endTime - this.startTime)/1000 + 4*this.numberLoss
 
         $rootScope.finishTest('stroop', score)
     }
@@ -544,22 +544,56 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('AnalyticsCtrl', function($scope, $rootScope, $state) {
+.controller('AnalyticsCtrl', function($scope, $rootScope, $state, $timeout) {
     var parent = this
     this.results = []
+    var chartData = [$rootScope.lastResults[0].score]
+    var aveCal = 0
+
+    var ctx = document.getElementById("results-chart").getContext("2d");
+    var chart = new Chart(ctx).Bar({
+        labels: ["Result"],
+        datasets: [
+            {
+                label: "Fuck me",
+                fillColor: "rgba(220,220,220,0.5)",
+                strokeColor: "rgba(220,220,220,0.8)",
+                highlightFill: "rgba(220,220,220,0.75)",
+                highlightStroke: "rgba(220,220,220,1)",
+                data: chartData
+            }
+        ]
+    }, {
+        scaleBeginAtZero : true,
+        scaleShowGridLines : true,
+        scaleGridLineColor : "rgba(0,0,0,.05)",
+        scaleGridLineWidth : 1,
+        scaleShowHorizontalLines: true,
+        scaleShowVerticalLines: true,
+        barShowStroke : true,
+        barStrokeWidth : 2,
+        barValueSpacing : 5,
+        barDatasetSpacing : 1,
+    });
+
+
 
     if($rootScope.lastResults != null) {
     for(var j=0;j<$rootScope.lastResults.length;j++) {
         console.log(j)
-        this.results.push({avg:1,count:0,scoreScaled:0,test:$rootScope.lastResults[j].test,scoreText:"0"})
+        this.results.push({avg:1,count:0,scoreScaled:0,test:$rootScope.lastResults[j].test,scoreText:"0",total:0})
 
         $rootScope.myScores.map(function(score){
             j = 0 // non-blocking issues
 
             if(score.test === $rootScope.lastResults[j].test && score.cal) {
                 parent.results[j].count++
+                parent.results[j].total += $rootScope.lastResults[j].score
+
                 parent.results[j].avg = parent.results[j].avg * (parent.results[j].count - 1) / parent.results[j].count
                     + score.score * (1/parent.results[j].count)
+
+                aveCal = parent.results[j].avg
 
                 var scaled = (parent.results[j].avg / $rootScope.lastResults[j].score) * 100
                 parent.results[j].scoreText = scaled.toFixed(2)
@@ -572,6 +606,11 @@ angular.module('starter.controllers', [])
 
             }
         })
+
+        $timeout(function() {
+            chart.addData([aveCal], 'Calibrated')
+            chart.update()
+        }, 2000)
     }
       this.getHome = function() {
         console.log("going home now")
