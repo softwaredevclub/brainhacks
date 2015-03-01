@@ -5,4 +5,4 @@ node_modules/
 platforms/
 plugins/
 ionic.sublime-workspace
-.DS_Store
+*.DS_Store
