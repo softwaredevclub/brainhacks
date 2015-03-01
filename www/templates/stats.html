@@ -1,0 +1,29 @@
+<ion-view view-title="Analytics">
+    <ion-content ng-controller="AnalyticsCtrl as Ctrl">
+        <div>
+            <div ng-hide="Ctrl.started">
+                <h1>Absolute Scores<br>Best Score: </h1>
+                <h3>Math<br>Best Score: </h3>
+                <h3>Reaction Time<br>Best Score: </h3>
+                <h3>Attention<br>Best Score: </h3>
+                <h3>Decisions<br>Best Score: </h3>
+
+                <button class="button button-block button-balanced" ng-click="Ctrl.start()">
+                    Absolute
+                </button>
+            </div>
+            <div ng-show="Ctrl.started">
+              <h1>Percentage Scores</h1>
+              <h3>Math</h3>
+              <h3>Reaction Time</h3>
+              <h3>Attention</h3>
+              <h3>Decisions</h3>
+
+              <button class="button button-block button-balanced" ng-click="Ctrl.end()">
+                  Last Score
+              </button>
+
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

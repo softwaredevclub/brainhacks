@@ -374,7 +374,7 @@ angular.module('starter.controllers', [])
         this.endTime = this.d2.getTime()
         console.log("startTime",this.startTime)
         console.log("endTime",this.endTime)
-        this.resultTime = (this.endTime - this.startTime)/1000 + 2*this.numberLoss
+        this.resultTime = (this.endTime - this.startTime)/1000 + 4*this.numberLoss
         alert('The game is over. Time was: ' + this.resultTime + " seconds" + " with losses: " + this.numberLoss)
 
 
@@ -385,8 +385,18 @@ angular.module('starter.controllers', [])
 
     }
 
+})
 
+.controller('AnalyticsCtrl', function($scope, $stateParams) {
+  this.started=false;
 
+  this.start = function() {
+    this.started = true;
+  }
+
+  this.end = function() {
+    this.started = false;
+  }
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
