@@ -567,6 +567,7 @@ angular.module('starter.controllers', [])
         scaleBeginAtZero : true,
         scaleShowGridLines : true,
         scaleGridLineColor : "rgba(0,0,0,.05)",
+        scaleFontColor:"rgba(255,255,255,1)",
         scaleGridLineWidth : 1,
         scaleShowHorizontalLines: true,
         scaleShowVerticalLines: true,
@@ -618,6 +619,105 @@ angular.module('starter.controllers', [])
 
       }
   }
+
+})
+
+.controller('HistoryCtrl', function($scope, $rootScope, $state, $timeout) {
+    var parent = this
+
+    var ctx = document.getElementById("radar-chart").getContext("2d");
+    var ctx2 = document.getElementById("bar-chart").getContext("2d");
+
+    var counts = {'screenflash': 0, 'stroop': 0, 'shopping': 0, 'gravityball': 0, 'basicMath': 0}
+    var cal = {'screenflash': 0, 'stroop': 0, 'shopping': 0, 'gravityball': 0, 'basicMath': 0} // total
+    var tes = {'screenflash': 0, 'stroop': 0, 'shopping': 0, 'gravityball': 0, 'basicMath': 0} // total
+
+    $rootScope.myScores.map(function(score){
+        counts[score.test]++
+
+        if(score.cal)
+            cal[score.test] += score.score
+        else
+            tes[score.test] += score.score
+    })
+
+    $timeout(function() {
+        var dataCal = []
+        var dataTes = []
+        var alls = []
+
+        for(key in cal) {
+            alls.push(tes[key] / cal[key])
+        }
+
+        console.log(alls)
+
+        // chart.addData([1,2,3,4,5], 'Calibrated')
+        // chart.addData({points:dataCal}, 'Calibrated')
+        // chart.addData(dataTes, 'Testing')
+        // chart.update()
+
+        var dataset = [
+            {
+                label: "Fuck bitches",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: alls
+            }
+        ]
+
+        var chart = new Chart(ctx).Radar({
+            labels: ["Screen Flash", "Stroop Test", "Shopping", "Gravity Ball", "Basic Math"],
+            // labels: ["first"],
+            datasets: dataset
+        }, {
+            scaleShowLine : true,
+            angleShowLineOut : true,
+            scaleShowLabels : false,
+            scaleBeginAtZero : true,
+            angleLineColor : "rgba(255,255,255,.1)",
+            scaleFontColor: "rgba(255,255,255,1)",
+            pointLabelFontColor: "rgba(255,255,255,1)",
+            scaleLineColor: "rgba(255,255,255,.1)",
+            angleLineWidth : 1,
+            pointDot : true,
+            pointDotRadius : 3,
+            pointDotStrokeWidth : 1,
+            pointHitDetectionRadius : 20,
+            datasetStroke : true,
+            datasetStrokeWidth : 2,
+            datasetFill : true,
+        });
+
+
+        var bar = new Chart(ctx2).Bar({
+            labels: ["Screen Flash", "Stroop Test", "Shopping", "Gravity Ball", "Basic Math"],
+            datasets: dataset
+        },{
+            scaleBeginAtZero : true,
+            scaleShowGridLines : true,
+            scaleGridLineColor : "rgba(0,0,0,.05)",
+            scaleFontColor:"rgba(255,255,255,1)",
+            scaleGridLineWidth : 1,
+            scaleShowHorizontalLines: true,
+            scaleShowVerticalLines: true,
+            barShowStroke : true,
+            barStrokeWidth : 2,
+            barValueSpacing : 5,
+            barDatasetSpacing : 1,
+        })
+    }, 4000)
+
+
+    this.getHome = function() {
+        console.log("going home now")
+        $state.go('app.home')
+
+    }
 
 })
 

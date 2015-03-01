@@ -1,0 +1,24 @@
+<ion-view hide-nav-bar="true" view-title="Test Results">
+    <ion-content ng-controller="HistoryCtrl as Ctrl">
+        <h1 id="title">Analytics</h1>
+
+        <div id="radar-container">
+            <canvas id="radar-chart" style="width:100%;"></canvas>
+        </div>
+
+        <div id="bar-container">
+            <canvas id="bar-chart" style="width:100%;"></canvas>
+        </div>
+
+        <ion-item class="menu_option main">
+            <div class="icon-holder">
+                <a ng-click="Ctrl.getHome()"><span class="icon-bike"></span></a>
+            </div>
+
+            <div class="stem"></div>
+
+            Home
+        </ion-item>
+
+    </ion-content>
+</ion-view>
