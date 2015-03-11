@@ -35,6 +35,7 @@ angular.module('starter.controllers', [])
               $rootScope.calibrating = false
               $state.go('app.home')
           }
+          $rootScope.calibrated = true
       } else {
           $ionicHistory.nextViewOptions({
               disableBack:true
@@ -68,7 +69,11 @@ angular.module('starter.controllers', [])
   };
 
   $rootScope.myID = localStorage.getItem('myID');
-  if(!$rootScope.myID){ localStorage.setItem('myID', $rootScope.myID = "id" + Gun.text.random()) }
+  $rootScope.calibrated = true
+  if(!$rootScope.myID) {
+      localStorage.setItem('myID', $rootScope.myID = "id" + Gun.text.random())
+      $rootScope.calibrated = false
+  }
 
   $rootScope.gun = Gun('https://gunjs.herokuapp.com/gun');
   window.scores = $rootScope.myScores = $rootScope.gun.load("brainhacks/" + $rootScope.myID + "/scores").group();
@@ -130,7 +135,10 @@ angular.module('starter.controllers', [])
         ctx.beginPath()
         ctx.arc(holex, holey, hr, 0, Math.PI*2)
         ctx.fillStyle = "black"
+        ctx.strokeStyle = "white"
+        ctx.lineWidth = 3
         ctx.fill()
+        ctx.stroke()
 
         ctx.beginPath()
         ctx.arc(ballx, bally, r, 0, Math.PI*2)
@@ -720,6 +728,16 @@ angular.module('starter.controllers', [])
 
     }
 
+})
+
+.controller('BrowseCtrl', function($scope, $stateParams, $rootScope, $state) {
+
+    console.log($rootScope.calibrated)
+    if(!$rootScope.calibrated) {
+        console.log($rootScope.calibrated)
+        alert('Please calibrate before starting a test')
+        $state.go('app.home')
+    }
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
