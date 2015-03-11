@@ -462,7 +462,7 @@ angular.module('starter.controllers', [])
     }
 
     this.finish = function() {
-        var score = yes
+        var score = yes * 100
         console.log(score)
 
         $rootScope.finishTest('shopping', score)
@@ -656,7 +656,10 @@ angular.module('starter.controllers', [])
         var alls = []
 
         for(key in cal) {
-            alls.push(tes[key] / cal[key])
+            if(cal[key] != 0)
+                alls.push(tes[key] / cal[key])
+            else
+                alls.push(2)
         }
 
         console.log(alls)
