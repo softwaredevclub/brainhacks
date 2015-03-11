@@ -19,3 +19,8 @@ A user will set up the app when they are clear of mind, such as the night before
 ## Special Features
 
 Our design philosophy is targeted towards the tired and inebriated. Everything is clearly and beautifully laid out with an emphasis on minimalism that will appeal to anyone in need of a nap. We have implemented simple and proven tests and easily understood graphs, altogether resulting in an experience the 1 AM user will treasure.
+
+## Installation
+
+Get Brain Hacks for Android on the [Google Play App Store](https://play.google.com/store/apps/details?id=com.teamturnt.brainhacks)  
+Brain Hacks for iOS is coming soon
